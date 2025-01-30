@@ -10,6 +10,11 @@ from tabulate import tabulate
 #%%
 df = pd.read_csv('scraped_data_biennale_maininfo.csv')
 
+
+# Display the first 50 rows of the DataFrame as a scrollable table
+display(HTML(df.head(10).to_html(classes='table table-striped table-hover', max_rows=50, max_cols=10, notebook=True)))
+
+#%%
 # Print unique titles with display
 html_table = df.to_html(classes='table table-striped table-hover', max_rows=len(unique_titles), max_cols=10, notebook=True)
 scrollable_table = f'<div style="height:400px; width:800px; overflow:auto;">{html_table}</div>'
