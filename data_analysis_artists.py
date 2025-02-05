@@ -9,7 +9,7 @@ from IPython.display import display, HTML
 #%%
 # Load the CSV file where we will delate years 1974 (no Art exhibit) and 1975 (joint exhibition with Architecture Biennale) [cfr. Venice Biennale ASAC Database]
 # Deleted raws: 336
-df = pd.read_csv('artists_years_removed.csv')
+df = pd.read_csv('scrape_arch_biennale_artists_years_cleaned.csv')
 #%%
 # only unqiue artists or eveng group?
 # contact curator switzerland 2024
@@ -19,6 +19,7 @@ df = pd.read_csv('artists_years_removed.csv')
 df.shape[0]
 # Check if there are person_id duplicates
 df['Artist_url'].nunique()
+df.head(50)
 #%%
 # Count unique Artist URLs
 # 1974,1975 raws deleted = 336

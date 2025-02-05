@@ -41,3 +41,4 @@ unique_titles_df = unique_titles_df[['Index', 'Title']]
 
 # Export the DataFrame to a CSV file on the desktop
 unique_titles_df.to_csv('/Users/jac/Desktop/produced_data_biennale_themes_list.csv', index=False)
+# %%

@@ -27,12 +27,20 @@ df.shape[0]
 df['person_id'].nunique()
 
     #366 more raws which is weird compared if the first file was artists.csv!
-# %%
-#calculate of N/a or missing values for each column
-df.isna().sum()
-#Give me the percentage of missing values for each column
-df.isna().mean()*100
 
+#%%
+# Calculate the number and percentage of missing values per column
+missing_values = df.isna().sum()
+missing_percentage = df.isna().mean() * 100
+
+# Combine both into a single DataFrame
+missing_summary = pd.DataFrame({
+    'Missing Values': missing_values,
+    'Percentage (%)': missing_percentage
+})
+
+# Display the summary
+print(missing_summary)
 #%%
 #Something went wrong with the scraping?
 # Top 10 most popular artists
@@ -104,4 +112,12 @@ print(f"Number of unsuccessful matches: {unsuccessful_matches}")
 print(f"Percentage of unsuccessful matches: {percentage_unsuccessful:.2f}%")
 # %%
 df.head(50)
+# %%
+# Define the file path
+desktop_path = os.path.join(os.path.expanduser("~"), "Desktop", "produced_data_biennale_artists_bio_GS_1_0.csv")
+
+# Save the DataFrame as a CSV file
+df.to_csv(desktop_path, index=False)
+
+print(f"CSV file has been saved at {desktop_path}")
 # %%
