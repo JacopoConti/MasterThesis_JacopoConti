@@ -1,7 +1,7 @@
 #%%
 import pandas as pd
 from IPython.display import display, HTML
-
+from fuzzywuzzy import fuzz
 #%%
 # Define the file paths
 csv_path_rkd_cleaned = "/Users/jac/Documents/GitHub/MasterThesis_JacopoConti/RKD_cleaned.csv"
@@ -77,4 +77,18 @@ output_csv_path = "/Users/jac/Documents/GitHub/MasterThesis_JacopoConti/RKD_clea
 df_rkd_cleaned_matches.to_csv(output_csv_path, index=False)
 
 print(f"New CSV file created with matched rows: {output_csv_path}")
+# %%
+# Find the number of matching names between df_bio and df_artists_condensed using fuzzy matching (# GIVE IT A SCORE IF IT IS A BIT DIFFERENT -- TRESHOLD ACCEPTANCE)
+matching_names = 0
+for name in df_bio['person_name']:
+    if any(fuzz.ratio(name, artist_name) > 95 for artist_name in df_rkd_cleaned['VB_name']):
+        matching_names += 1
+
+# Calculate the percentage of matching names
+total_names = df_bio['person_name'].nunique()
+percentage_matching = (matching_names / total_names) * 100
+
+# Print the results
+print(f"Number of matching names: {matching_names}")
+print(f"Percentage of matching names: {percentage_matching:.2f}%")
 # %%
