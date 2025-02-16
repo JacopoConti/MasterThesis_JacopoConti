@@ -112,6 +112,13 @@ plt.legend(title='GS', labels=['Not GS (0)', 'GS (1)'])
 # Adjust layout
 plt.tight_layout()
 
+# Get desktop path for macOS
+desktop_path = os.path.expanduser("~/Desktop")
+svg_path = os.path.join(desktop_path, "artists_count_by_year_GS_status.svg")
+
+# Save the plot as an SVG file
+plt.savefig(svg_path, format='svg')
+
 # Display the plot
 plt.show()
 
@@ -140,39 +147,48 @@ plt.legend(title='GS', labels=['Not GS (0)', 'GS (1)'])
 # Adjust layout
 plt.tight_layout()
 
+# Get desktop path for macOS
+desktop_path = os.path.expanduser("~/Desktop")
+svg_path = os.path.join(desktop_path, "artists_count_by_year_.svg")
+
+# Save the plot as an SVG file
+plt.savefig(svg_path, format='svg')
+
 # Display the plot
 plt.show()
 
 #%%
-# Calculate the average number of artists per year
-average_artists_per_year = df_cleaned_GS.groupby('Year')['Artist_name'].nunique().mean()
-print(f"Average number of artists per year: {average_artists_per_year:.2f}")
+# Group by Year and GS, then pivot into separate columns
+df_stacked = df_cleaned_GS.groupby(['Year', 'GS']).size().unstack(fill_value=0)
 
-# Group by Year to get the total number of artists per year
-df_total_artists = df_cleaned_GS.groupby('Year').size()
-
-# Create a bar plot with the total number of artists per year
+# Create a stacked bar plot
 plt.figure(figsize=(16, 6), dpi=300)
-df_total_artists.plot(kind='bar', color='orange', ax=plt.gca())
-
-# Add an average line at the calculated average count
-plt.axhline(y=average_artists_per_year, color='r', linestyle='--', label=f'Average Count ({average_artists_per_year:.2f})')
+df_stacked.plot(kind='bar', stacked=True, ax=plt.gca(), color=['lightgrey', '#B2C6B8'])
 
 plt.xlabel('Year', fontsize=14, labelpad=20)
 plt.ylabel('Count', fontsize=14, labelpad=20)
-plt.title('Total Count of Artists by Year', fontsize=16, pad=30)
+plt.title('Count of Artists by Year (Stacked by GS status)', fontsize=16, pad=30)
 
 # Rotate x-axis labels for better readability
 plt.xticks(rotation=45, ha='right')
 
 # Add a legend
-plt.legend()
+plt.legend(title='GS', labels=['Not GS (0)', 'GS (1)'])
 
 # Adjust layout
 plt.tight_layout()
 
+# Get desktop path for macOS
+desktop_path = os.path.expanduser("~/Desktop")
+svg_path = os.path.join(desktop_path, "artists_count_by_year_GS_status_V2.svg")
+
+# Save the plot as an SVG file
+plt.savefig(svg_path, format='svg')
+
 # Display the plot
 plt.show()
+
+print(f"SVG file saved to: {svg_path}")
 # %%
 # Print the total number of rows in df_cleaned_GS
 print(f"Total number of rows in df_cleaned_GS: {len(df_cleaned_GS)}")

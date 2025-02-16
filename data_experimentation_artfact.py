@@ -77,6 +77,10 @@ df_artfacts_raw = pd.concat(df_list, ignore_index=True)
 #%%
 display(HTML(df_artfacts_raw.head(50).to_html(classes='table table-striped', max_rows=50, max_cols=50, notebook=True)))
 #%%
+# Export the DataFrame to a CSV file on the desktop
+output_file_path = '/Users/jac/Desktop/scrape_arch_artfatcs_raw_50.csv'
+df_artfacts_raw.to_csv(output_file_path, index=False)
+#%%
 # Calculate the number of rows in the concatenated DataFrame
 num_rows = df_artfacts_raw.shape[0]
 num_unique_ids = df_artfacts_raw['id'].nunique()
